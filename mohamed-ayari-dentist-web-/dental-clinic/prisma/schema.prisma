@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id             String    @id @default(cuid()) @db.VarChar(191)
+  name           String
+  email          String    @unique @db.VarChar(191)
+  hashedPassword String
+  role           AdminRole @default(ADMIN)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([email])
+  @@map("admins")
+}
+
+model Appointment {
+  id              String            @id @default(cuid()) @db.VarChar(191)
+  patientName     String
+  email           String            @db.VarChar(191)
+  phone           String
+  selectedService String
+  appointmentDate DateTime
+  appointmentTime String
+  message         String?           @db.Text
+  status          AppointmentStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([appointmentDate])
+  @@index([createdAt])
+  @@map("appointments")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid()) @db.VarChar(191)
+  fullName  String
+  email     String   @db.VarChar(191)
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("contact_messages")
+}
+
+model WebsiteVisitor {
+  id         String   @id @default(cuid()) @db.VarChar(191)
+  ipAddress  String   @db.VarChar(191)
+  country    String?
+  city       String?
+  deviceType String?
+  browser    String?
+  os         String?
+  referrer   String?  @db.VarChar(500)
+  page       String   @default("/") @db.VarChar(500)
+  sessionId  String?  @db.VarChar(191)
+  visitedAt  DateTime @default(now())
+
+  @@index([visitedAt])
+  @@index([ipAddress])
+  @@index([sessionId])
+  @@map("website_visitors")
+}
+
+model Analytics {
+  id                    String   @id @default(cuid()) @db.VarChar(191)
+  date                  DateTime @unique @db.Date
+  totalVisits           Int      @default(0)
+  uniqueVisitors        Int      @default(0)
+  bookingCount          Int      @default(0)
+  contactMessagesCount  Int      @default(0)
+  updatedAt             DateTime @updatedAt
+
+  @@index([date])
+  @@map("analytics")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid()) @db.VarChar(191)
+  patientName String
+  rating      Int      @default(5)
+  review      String   @db.Text
+  service     String?
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([approved])
+  @@index([createdAt])
+  @@map("testimonials")
+}
+
+model GalleryImage {
+  id           String   @id @default(cuid()) @db.VarChar(191)
+  imageUrl     String   @db.VarChar(1000)
+  thumbnailUrl String?  @db.VarChar(1000)
+  category     String   @db.VarChar(191)
+  title        String?
+  altText      String?
+  uploadedAt   DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@index([uploadedAt])
+  @@map("gallery_images")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid()) @db.VarChar(191)
+  // Réduit à 512 pour passer la limite d'index MySQL (512 * 4 = 2048 < 3072)
+  token     String   @unique @db.VarChar(512) 
+  adminId   String   @db.VarChar(191)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([adminId])
+  @@map("refresh_tokens")
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}

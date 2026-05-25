@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+dental-clinic/node_modules/
+
+# Next.js
+dental-clinic/.next/
+dental-clinic/out/
+
+# Build artifacts
+dental-clinic/tsconfig.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Claude Code local settings (personal, not shared)
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Temporary screenshots
+"temporary screenshots"/
