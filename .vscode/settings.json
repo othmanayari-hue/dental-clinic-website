@@ -1,0 +1,9 @@
+{
+  "typescript.tsdk": "mohamed-ayari-dentist-web-/dental-clinic/node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.next": true
+  }
+}

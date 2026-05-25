@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: install",
+      "type": "npm",
+      "script": "install",
+      "path": "${workspaceFolder}",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "npm: dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "${workspaceFolder}",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "db: push",
+      "type": "npm",
+      "script": "db:push",
+      "path": "${workspaceFolder}",
+      "problemMatcher": []
+    },
+    {
+      "label": "db: seed",
+      "type": "npm",
+      "script": "db:seed",
+      "path": "${workspaceFolder}",
+      "problemMatcher": []
+    }
+  ]
+}

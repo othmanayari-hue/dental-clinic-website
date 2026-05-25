@@ -1,0 +1,19 @@
+{
+  "name": "cabinet-dentaire-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Racine du workspace VS Code — l'app Next.js est dans dental-clinic",
+  "workspaces": [
+    "mohamed-ayari-dentist-web-/dental-clinic"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w cabinet-dentaire-ayari",
+    "build": "npm run build -w cabinet-dentaire-ayari",
+    "start": "npm run start -w cabinet-dentaire-ayari",
+    "lint": "npm run lint -w cabinet-dentaire-ayari",
+    "db:generate": "npm run db:generate -w cabinet-dentaire-ayari",
+    "db:push": "npm run db:push -w cabinet-dentaire-ayari",
+    "db:seed": "npm run db:seed -w cabinet-dentaire-ayari",
+    "db:studio": "npm run db:studio -w cabinet-dentaire-ayari"
+  }
+}
